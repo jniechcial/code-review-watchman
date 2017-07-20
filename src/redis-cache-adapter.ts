@@ -6,9 +6,9 @@ export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInt
     private redisInstance: any;
     private cacheKey: string;
 
-    constructor(cacheKey: string) {
+    constructor(cacheKey: string, redisModule: any = Redis) {
         this.dataCache = null;
-        this.redisInstance = Redis.createClient();
+        this.redisInstance = redisModule.createClient();
         this.cacheKey = cacheKey;
     }
 

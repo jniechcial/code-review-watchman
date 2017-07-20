@@ -1,7 +1,6 @@
 import * as ICacheAdapter from './cache-adapter';
 import MemoryCacheAdapter from './memory-cache-adapter';
 
-
 describe('MemoryCacheAdapter', () => {
   it('raises exception when read empty cache', async () => {
     const memoryCacheAdapter = new MemoryCacheAdapter();
