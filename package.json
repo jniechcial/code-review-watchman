@@ -5,24 +5,50 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts"
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
+    "test": "jest"
   },
   "engines": {
     "node": "8.1.2"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {    
+  "devDependencies": {
     "@types/core-js": "^0.9.42",
+    "@types/jest": "^20.0.4",
     "@types/node": "^8.0.9",
     "@types/node-fetch": "^1.6.7",
-    "@types/redis": "^2.6.0",    
+    "@types/redis": "^2.6.0",
     "core-js": "^2.4.1",
+    "jest": "^20.0.4",
     "moment": "^2.18.1",
     "node-fetch": "^1.7.1",
     "nodemon": "^1.11.0",
     "redis": "^2.7.1",
+    "ts-jest": "^20.0.7",
     "ts-node": "^3.2.0",
+    "tslint": "^5.5.0",
+    "tslint-config-airbnb": "^5.2.1",
     "typescript": "^2.4.1"
+  },
+  "jest": {
+    "coverageDirectory": "<rootDir>/coverage",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts)$",
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/vendor/**/*.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
   }
 }
