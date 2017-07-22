@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build:live",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts",
+    "start": "ts-node index.ts",
+    "debug": "ts-node --inspect index.ts",
     "test": "jest"
   },
   "engines": {
     "node": "8.1.2"
   },
-  "author": "",
+  "author": "Kuba Niechcial <jakub.niechcial@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/core-js": "^0.9.42",
@@ -51,5 +51,8 @@
       "js",
       "json"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0"
   }
 }
