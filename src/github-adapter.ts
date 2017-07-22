@@ -19,12 +19,14 @@ export default class GithubAdapter implements IDataAdapter.IDataAdapterInterface
     private username: string;
     private organizationName: string;
     private cacheAdapter: ICacheAdapter.ICacheAdapterInterface;
+    private fetch: any;
 
-    constructor(token: string, username: string, organizationName: string, cacheAdapter: ICacheAdapter.ICacheAdapterInterface) {
+    constructor(token: string, username: string, organizationName: string, cacheAdapter: ICacheAdapter.ICacheAdapterInterface, _fetch: any = fetch) {
         this.token = token;
         this.username = username;
         this.organizationName = organizationName;
         this.cacheAdapter = cacheAdapter;
+        this.fetch = _fetch;
     }
 
     fetchData(fromDate: Date, endDate: Date): Promise<any> {
@@ -85,21 +87,21 @@ export default class GithubAdapter implements IDataAdapter.IDataAdapterInterface
 
     private fetchHrefFromGithub(href: string) : Promise<any> {
         console.log('Fetching URL: ' + href);
-        return fetch(href, {
+        return this.fetch(href, {
             headers: {
                 'Authorization': this.generateAuthHeader(),
             },
         })
-        .then((response) => response.json());
+        .then((response: any) => response.json());
     }
 
     private fetchOnePage(href : string, data : any) : Promise<any> {
         console.log('Fetching URL: ' + href);
-        return fetch(href, {
+        return this.fetch(href, {
             headers: {
                 'Authorization': this.generateAuthHeader(),
             },
-        }).then((res) => {
+        }).then((res: any) => {
             const rels : IGithubPaginationRels = this.getRelsFromResponse(res);
             return this.createResponse(rels, res);
         }).then((response: IResponseWrapper) => {
