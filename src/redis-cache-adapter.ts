@@ -24,12 +24,12 @@ export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInt
         return new Promise((resolve, reject) => {
             this.redisInstance.get(this.cacheKey, function(err: any, response: any) {
                 if (err) {
-                    reject(err);
+                    return reject(err);
                 } else if (response) {
                     console.log('Reading from cache');
-                    resolve(JSON.parse(response));
+                    return resolve(JSON.parse(response));
                 } else {
-                    reject(new ICacheAdapter.CacheEmptyError());
+                    return reject(new ICacheAdapter.CacheEmptyError());
                 }
             });
         });

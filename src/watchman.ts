@@ -27,10 +27,8 @@ export default class Watchman {
         });
     }
 
-    generateUsersRepository(data : Array<any>) : Array<User> {
+    private generateUsersRepository(data : Array<any>) : Array<User> {
         const _users : { [username: string] : User } = {};
-        debugger;
-        console.log(data[10]);
 
         data.forEach((pullRequest) => {
             const prInstance : PullRequest = new PullRequest(pullRequest.id, pullRequest.url);
@@ -40,8 +38,6 @@ export default class Watchman {
             _users[pullRequest.user.login] = user;
         });
 
-        const users : Array<User> = Object.keys(_users).map((key) => _users[key]);
-
-        return users;
+        return Object.keys(_users).map((key) => _users[key]);
     }
 }
