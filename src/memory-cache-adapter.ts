@@ -1,4 +1,5 @@
 import * as ICacheAdapter from './cache-adapter';
+import * as Errors from './errors';
 
 export default class MemoryCacheAdapter implements ICacheAdapter.ICacheAdapterInterface {
     private dataCache: any;
@@ -16,7 +17,7 @@ export default class MemoryCacheAdapter implements ICacheAdapter.ICacheAdapterIn
     readCache() {
         if (this.dataCache === null) {
             console.log('Throwing error');
-            return Promise.reject(new ICacheAdapter.CacheEmptyError());
+            return Promise.reject(new Errors.CacheEmptyError());
         }
         console.log('Reading from cache');
         return Promise.resolve(this.dataCache);

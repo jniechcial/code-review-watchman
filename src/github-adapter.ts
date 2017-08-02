@@ -3,6 +3,7 @@ const moment = require('moment');
 import fetch from 'node-fetch';
 import * as IDataAdapter from './data-adapter';
 import * as ICacheAdapter from './cache-adapter';
+import * as Errors from './errors';
 import sequence from './utils/promise-sequence';
 
 interface IGithubPaginationRels {
@@ -31,7 +32,7 @@ export default class GithubAdapter implements IDataAdapter.IDataAdapterInterface
 
     fetchData(fromDate: Date, endDate: Date): Promise<any> {
         return this.cacheAdapter.readCache().catch((err) => {
-            if (!(err instanceof ICacheAdapter.CacheEmptyError)) throw err;
+            if (!(err instanceof Errors.CacheEmptyError)) throw err;
 
             const items : Array<any> = [];
 

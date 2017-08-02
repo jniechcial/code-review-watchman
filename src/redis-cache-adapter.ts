@@ -1,5 +1,6 @@
 const Redis = require('redis');
 import * as ICacheAdapter from './cache-adapter';
+import * as Errors from './errors';
 
 export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInterface {
     private dataCache: any;
@@ -29,7 +30,7 @@ export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInt
                     console.log('Reading from cache');
                     return resolve(JSON.parse(response));
                 } else {
-                    return reject(new ICacheAdapter.CacheEmptyError());
+                    return reject(new Errors.CacheEmptyError());
                 }
             });
         });

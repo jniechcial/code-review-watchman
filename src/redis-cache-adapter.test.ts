@@ -1,5 +1,6 @@
 import RedisCacheAdapter from './redis-cache-adapter';
 import * as ICacheAdapter from './cache-adapter';
+import * as Errors from './errors';
 
 const MockedRedis = {
     createClient() {
@@ -12,7 +13,7 @@ const MockedRedis = {
             },
             get() {
                 if (_data) {
-                    return Promise.reject(new ICacheAdapter.CacheEmptyError())
+                    return Promise.reject(new Errors.CacheEmptyError())
                 } else {
                     return Promise.resolve(_data);
                 }
@@ -28,7 +29,7 @@ describe('RedisCacheAdapter', () => {
     const redisCacheAdapter = new RedisCacheAdapter(CACHE_KEY, MockedRedis);
 
     redisCacheAdapter.readCache().catch((error) => {
-        expect(error).toBeInstanceOf(ICacheAdapter.CacheEmptyError);
+        expect(error).toBeInstanceOf(Errors.CacheEmptyError);
     });
   });
 

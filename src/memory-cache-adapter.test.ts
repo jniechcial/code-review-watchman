@@ -1,4 +1,4 @@
-import * as ICacheAdapter from './cache-adapter';
+import * as Errors from './errors';
 import MemoryCacheAdapter from './memory-cache-adapter';
 
 describe('MemoryCacheAdapter', () => {
@@ -6,7 +6,7 @@ describe('MemoryCacheAdapter', () => {
     const memoryCacheAdapter = new MemoryCacheAdapter();
 
     memoryCacheAdapter.readCache().catch((error) => {
-        expect(error).toBeInstanceOf(ICacheAdapter.CacheEmptyError);
+        expect(error).toBeInstanceOf(Errors.CacheEmptyError);
     });
   });
 
