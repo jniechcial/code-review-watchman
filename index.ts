@@ -10,6 +10,7 @@ const username : string = process.env.GITHUB_USERNAME || '';
 
 const REDIS_DEFAULT_CACHE_KEY = '_watchman';
 
+const memoryCacheAdapter = new MemoryCacheAdapter();
 // const redisCacheAdapter = new RedisCacheAdapter(process.env.REDIS_CACHE_KEY || REDIS_DEFAULT_CACHE_KEY);
 const githubAdapter = new GithubAdapter(token, username, process.env.GITHUB_ORGANIZATION || 'netguru', memoryCacheAdapter);
 
