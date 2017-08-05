@@ -1,22 +1,17 @@
 import RedisCacheAdapter from './redis-cache-adapter';
-import * as ICacheAdapter from './cache-adapter';
-import * as Errors from './errors';
+import { CacheEmptyError } from './errors';
 
 const MockedRedis = {
     createClient() {
         let _data : any = undefined;
 
         return {
-            set(data : any) {
+            set(cacheKey : string, data : any, callback : () => any) {
                 _data = data;
-                return Promise.resolve();
+                callback();
             },
-            get() {
-                if (_data) {
-                    return Promise.reject(new Errors.CacheEmptyError())
-                } else {
-                    return Promise.resolve(_data);
-                }
+            get(cacheKey : string, callback : (err : any, response : any) => any) {
+                callback(null, _data);
             }
         };
     }
@@ -28,19 +23,19 @@ describe('RedisCacheAdapter', () => {
   it('raises exception when read empty cache', async () => {
     const redisCacheAdapter = new RedisCacheAdapter(CACHE_KEY, MockedRedis);
 
-    redisCacheAdapter.readCache().catch((error) => {
-        expect(error).toBeInstanceOf(Errors.CacheEmptyError);
-    });
+    try {
+        await redisCacheAdapter.readCache();
+    } catch(error) {
+        expect(error).toBeInstanceOf(CacheEmptyError);
+    }
   });
 
   it('returns cached data when read cache and present', async () => {
-    const memoryCacheAdapter = new RedisCacheAdapter(CACHE_KEY, MockedRedis);
+    const redisCacheAdapter = new RedisCacheAdapter(CACHE_KEY, MockedRedis);
     const testData = 'Test data';
 
-    memoryCacheAdapter.writeCache(testData).then(() => {
-        return memoryCacheAdapter.readCache();
-    }).then((data) => {
-        expect(data).toEqual(testData);
-    });
+    await redisCacheAdapter.writeCache(testData)
+    const data = await redisCacheAdapter.readCache();
+    expect(data).toEqual(testData);
   });
 });

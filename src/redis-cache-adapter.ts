@@ -1,8 +1,8 @@
 const Redis = require('redis');
-import * as ICacheAdapter from './cache-adapter';
-import * as Errors from './errors';
+import { ICacheAdapterInterface } from './cache-adapter';
+import { CacheEmptyError } from './errors';
 
-export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInterface {
+export default class RedisCacheAdapter implements ICacheAdapterInterface {
     private dataCache: any;
     private redisInstance: any;
     private cacheKey: string;
@@ -13,16 +13,16 @@ export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInt
         this.cacheKey = cacheKey;
     }
 
-    writeCache(data: any) {
-        return new Promise((resolve, reject) => {
+    async writeCache(data: any) : Promise<any> {
+        return await new Promise((resolve, reject) => {
             this.redisInstance.set(this.cacheKey, JSON.stringify(data), function(err: any, response: any) {
                 if (err) { reject(err); } else { resolve(); }
             });
         });
     }
 
-    readCache() {
-        return new Promise((resolve, reject) => {
+    async readCache() : Promise<any>{
+        return await new Promise((resolve, reject) => {
             this.redisInstance.get(this.cacheKey, function(err: any, response: any) {
                 if (err) {
                     return reject(err);
@@ -30,7 +30,7 @@ export default class RedisCacheAdapter implements ICacheAdapter.ICacheAdapterInt
                     console.log('Reading from cache');
                     return resolve(JSON.parse(response));
                 } else {
-                    return reject(new Errors.CacheEmptyError());
+                    return reject(new CacheEmptyError());
                 }
             });
         });

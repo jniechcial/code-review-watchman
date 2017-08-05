@@ -1,25 +1,24 @@
-import * as ICacheAdapter from './cache-adapter';
-import * as Errors from './errors';
+import { ICacheAdapterInterface } from './cache-adapter';
+import { CacheEmptyError } from './errors';
 
-export default class MemoryCacheAdapter implements ICacheAdapter.ICacheAdapterInterface {
+export default class MemoryCacheAdapter implements ICacheAdapterInterface {
     private dataCache: any;
 
     constructor() {
         this.dataCache = null;
     }
 
-    writeCache(data: any) {
+    async writeCache(data: any) : Promise<void> {
         console.log('Writing to cache');
         this.dataCache = data;
-        return Promise.resolve();
     }
 
-    readCache() {
-        if (this.dataCache === null) {
+    async readCache() : Promise<void> {
+        if (!this.dataCache) {
             console.log('Throwing error');
-            return Promise.reject(new Errors.CacheEmptyError());
+            throw new CacheEmptyError();
         }
         console.log('Reading from cache');
-        return Promise.resolve(this.dataCache);
+        return this.dataCache;
     }
 }
