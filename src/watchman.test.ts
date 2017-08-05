@@ -1,5 +1,5 @@
 import Watchman from './watchman';
-import * as DataAdapter from './data-adapter';
+import { IDataAdapterInterface } from './data-adapter';
 
 const mockedData = [
     {
@@ -22,7 +22,7 @@ const mockedData = [
     },
 ];
 
-class MockedDataAdapter implements DataAdapter.IDataAdapterInterface {
+class MockedDataAdapter implements IDataAdapterInterface {
     spy: any;
 
     constructor(spy : any) {
@@ -41,12 +41,10 @@ describe('Watchman', () => {
 
         const mockedDataAdapter = new MockedDataAdapter(fetchDataSpy);
         const watchman = new Watchman(new Date(), new Date(), mockedDataAdapter);
-        watchman.getUsers().then((usersRepository) => {
-            expect(fetchDataSpy).toHaveBeenCalled();
-            expect(usersRepository.getUser('test1').username).toEqual('test1');
-            expect(usersRepository.getUser('test2').username).toEqual('test2');
-            expect(usersRepository.getUser('test1').pullRequestsReviewed.length).toEqual(0);
-            expect(usersRepository.getUser('test1').pullRequestsSubmitted.length).toEqual(1);
-        });
+        const usersRepository = await watchman.getUsers();
+
+        expect(fetchDataSpy).toHaveBeenCalled();
+        expect(usersRepository.getUser('test1')).toMatchSnapshot();
+        expect(usersRepository.getUser('test2')).toMatchSnapshot();
     });
 });
