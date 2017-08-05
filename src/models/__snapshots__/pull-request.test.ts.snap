@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PullRequest #approvedReviews returns all approved reviews 1`] = `
+Array [
+  PullRequestReview {
+    "state": "APPROVED",
+    "username": "test1",
+  },
+]
+`;
+
+exports[`PullRequest #getReviewsByUsername returns all reviews of particular user 1`] = `2`;
+
+exports[`PullRequest #rejectedReviews returns all rejected reviews 1`] = `
+Array [
+  PullRequestReview {
+    "state": "CHANGES_REQUESTED",
+    "username": "test1",
+  },
+  PullRequestReview {
+    "state": "CHANGES_REQUESTED",
+    "username": "test2",
+  },
+]
+`;
+
+exports[`PullRequest creates pull request instance with reviews 1`] = `
+Array [
+  PullRequestReview {
+    "state": "CHANGES_REQUESTED",
+    "username": "test1",
+  },
+  PullRequestReview {
+    "state": "APPROVED",
+    "username": "test1",
+  },
+  PullRequestReview {
+    "state": "CHANGES_REQUESTED",
+    "username": "test2",
+  },
+  PullRequestReview {
+    "state": "SOME_OTHER_STATE",
+    "username": "test2",
+  },
+]
+`;

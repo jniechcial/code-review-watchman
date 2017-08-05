@@ -1,5 +1,5 @@
 import User from '../models/user';
-import * as Errors from '../errors';
+import { NoUserFound } from '../errors';
 
 export default class UsersRepository {
     users : Array<User>;
@@ -17,7 +17,7 @@ export default class UsersRepository {
             return _user.username === name;
         });
 
-        if (user === undefined) { throw new Errors.NoUserFound(); }
+        if (!user) { throw new NoUserFound(); }
 
         return user;
     }

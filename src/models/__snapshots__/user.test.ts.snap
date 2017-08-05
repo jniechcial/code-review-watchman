@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User creates user with no pull requests 1`] = `
+User {
+  "pullRequestsReviewed": Array [],
+  "pullRequestsSubmitted": Array [],
+  "username": "test1",
+}
+`;

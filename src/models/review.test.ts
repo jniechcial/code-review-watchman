@@ -7,7 +7,7 @@ const stubbedData = {
 
 describe('Review', () => {
     it('creates review properly', async () => {
-        const pullRequest = new Review(stubbedData);
-        expect(pullRequest.username).toEqual('test1');
+        const review = new Review(stubbedData);
+        expect(review).toMatchSnapshot();
     });
 });

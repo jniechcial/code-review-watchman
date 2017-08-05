@@ -15,22 +15,22 @@ const stubbedData = {
 describe('PullRequest', () => {
     it('creates pull request instance with reviews', async () => {
         const pullRequest = new PullRequest(stubbedData.id, stubbedData.url, stubbedData.reviews);
-        expect(pullRequest.reviews.length).toEqual(stubbedData.reviews.length);
         expect(pullRequest.reviews[0]).toBeInstanceOf(Review);
+        expect(pullRequest.reviews).toMatchSnapshot();
     });
 
     it('#rejectedReviews returns all rejected reviews', async () => {
         const pullRequest = new PullRequest(stubbedData.id, stubbedData.url, stubbedData.reviews);
-        expect(pullRequest.rejectedReviews().length).toEqual(2);
+        expect(pullRequest.rejectedReviews()).toMatchSnapshot();
     });
 
     it('#approvedReviews returns all approved reviews', async () => {
         const pullRequest = new PullRequest(stubbedData.id, stubbedData.url, stubbedData.reviews);
-        expect(pullRequest.approvedReviews().length).toEqual(1);
+        expect(pullRequest.approvedReviews()).toMatchSnapshot();
     });
 
     it('#getReviewsByUsername returns all reviews of particular user', async () => {
         const pullRequest = new PullRequest(stubbedData.id, stubbedData.url, stubbedData.reviews);
-        expect(pullRequest.getReviewsByUsername('test1').length).toEqual(2);
+        expect(pullRequest.getReviewsByUsername('test1').length).toMatchSnapshot();
     });
 });

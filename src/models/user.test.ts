@@ -19,8 +19,7 @@ const pullRequest3 = new PullRequest('3', 'testURL/1', [
 describe('User', () => {
     it('creates user with no pull requests', async () => {
         const user = new User('test1');
-        expect(user.pullRequestsReviewed.length).toEqual(0);
-        expect(user.pullRequestsSubmitted.length).toEqual(0);
+        expect(user).toMatchSnapshot();
     });
 
     it('#getRejectsCount returns count of rejected reviews by user', async () => {

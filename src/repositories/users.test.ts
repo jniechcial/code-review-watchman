@@ -1,6 +1,6 @@
 import UsersRepository from './users';
 import User from '../models/user';
-import * as Errors from '../errors';
+import { NoUserFound } from '../errors';
 
 const user = new User('test1');
 
@@ -14,6 +14,6 @@ describe('UsersRepository', () => {
         const usersRepository = new UsersRepository([]);
         expect(() => {
             usersRepository.getUser('test1')
-        }).toThrowError(Errors.NoUserFound);
+        }).toThrowError(NoUserFound);
     });
 });
