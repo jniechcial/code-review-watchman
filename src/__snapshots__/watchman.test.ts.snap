@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Watchman #getUsers creates users repository by fetching data from dataAdapter 1`] = `
+User {
+  "pullRequestsReviewed": Array [],
+  "pullRequestsSubmitted": Array [
+    PullRequest {
+      "id": "1",
+      "reviews": Array [
+        PullRequestReview {
+          "state": "APPROVED",
+          "username": "test2",
+        },
+      ],
+      "url": "/test/1",
+    },
+  ],
+  "username": "test1",
+}
+`;
+
+exports[`Watchman #getUsers creates users repository by fetching data from dataAdapter 2`] = `
+User {
+  "pullRequestsReviewed": Array [
+    PullRequest {
+      "id": "1",
+      "reviews": Array [
+        PullRequestReview {
+          "state": "APPROVED",
+          "username": "test2",
+        },
+      ],
+      "url": "/test/1",
+    },
+  ],
+  "pullRequestsSubmitted": Array [
+    PullRequest {
+      "id": "1",
+      "reviews": Array [
+        PullRequestReview {
+          "state": "APPROVED",
+          "username": "test3",
+        },
+      ],
+      "url": "/test/1",
+    },
+  ],
+  "username": "test2",
+}
+`;

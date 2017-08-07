@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review creates review properly 1`] = `
+PullRequestReview {
+  "state": "CHANGES_REQUESTED",
+  "username": "test1",
+}
+`;

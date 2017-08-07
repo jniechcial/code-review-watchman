@@ -16,6 +16,12 @@ const githubAdapter = new GithubAdapter(token, username, process.env.GITHUB_ORGA
 
 const watchman = new Watchman(new Date(2017, 6, 15), new Date(2017, 6, 17), githubAdapter);
 
-watchman.getUsers().then((data) => {
+watchman.getUsers().then((usersRepository) => {
+    const users = usersRepository.getUsers();
+    console.log('\t\t\t Submitted \t Reviewed \t Ratio \t\t Approved \t Rejected \t');
+    users.forEach((user) => {
+        console.log(user.username);
+        console.log(`\t\t\t ${user.pullRequestsSubmitted.length} \t\t ${user.pullRequestsReviewed.length} \t\t ${user.getPRRatio().toPrecision(2)} \t\t ${user.getApprovesCount()} \t\t ${user.getRejectsCount()}`);
+    })
     return null;
 });
